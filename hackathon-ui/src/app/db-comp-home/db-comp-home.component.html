@@ -1,0 +1,92 @@
+<div class="mdl-grid" style="width: 1200px; border: 3px solid black; height: 600px; margin-top: 2%;">
+  <!--Left side form-->
+  <div class="mdl-cell mdl-cell--6-col" style="width: 600px;">
+    <h3 style="text-align: center;">Database 1</h3>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Username" [(ngModel)]="database1.username">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="database1.password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Server Name" [(ngModel)]="database1.serverName" (focusout)="populateDatabases()">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Database" [(value)]="database1.dbName" (selectionChange)="populateTables()">
+          <mat-option *ngFor="let db of databases" [value]="db">{{db}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Tables" [(value)]="database1.tableName" (selectionChange)="populateColumns()">
+          <mat-option *ngFor="let table of tables" [value]="table">{{table}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Columns</mat-label>
+        <mat-select [formControl]="columnFormControl" (selectionChange)="selectColumnInSecondDB()" (openedChange)="printColumns()" multiple>
+          <mat-option *ngFor="let column of columns" [value]="column">{{column}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <div *ngFor="let column of columns">
+            <mat-checkbox (change)="appendSelectedColumns(column)">{{column}}</mat-checkbox>
+          </div> -->
+
+    </div>
+  </div>
+
+  <mat-divider [vertical]="true" style="background-color: black; width: 2px;"></mat-divider>
+
+  <!--Right side form-->
+  <div class="mdl-cell mdl-cell--6-col" style="width: 560px;">
+    <h3 style="text-align: center;">Database 2</h3>
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Username" [(ngModel)]="database2.username">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="database2.password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Server Name" [(ngModel)]="database2.serverName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Database" [(value)]="selectedDB" (selectionChange)="populateTables()">
+          <mat-option *ngFor="let db of databases" [value]="db">{{db}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select placeholder="Tables" [(value)]="selectedTable" (selectionChange)="populateColumns()">
+          <mat-option *ngFor="let table of tables" [value]="table">{{table}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div *ngFor="let column of columns2">
+        <span
+          style="float: left; background-color: red;margin-top: 5px; margin-right: 10px; color: white; font-size: 30px;padding: 10px;"
+          *ngIf="isSelectedInDB1(column)">{{column}}</span>
+        <span
+          style="float: left; background-color: teal;margin-top: 5px; margin-right: 10px; color: white; font-size: 30px;padding: 10px;"
+          *ngIf="!isSelectedInDB1(column)">{{column}}</span>
+      </div>
+
+    </div>
+
+    <button mat-raised-button
+      style="background-color: darkslategrey; color: white; width: 200px; height: 50px; float: right; font-size: 20px; margin-top: 50px;">Compare</button>
+  </div>
+</div>

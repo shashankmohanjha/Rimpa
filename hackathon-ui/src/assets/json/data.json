@@ -1,0 +1,23 @@
+{
+  "database": [{
+    "id": 0,
+    "table": "tableName",
+    "columns": [
+      "col1",
+      "col2",
+      "col3"
+    ],
+    "data": [
+      [
+        "c1-data1",
+        "c2-data1",
+        "c3-data1"
+      ],
+      [
+        "c1-data2",
+        "c2-data2",
+        "c3-data2"
+      ]
+    ]
+  }]
+}

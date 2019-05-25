@@ -1,0 +1,22 @@
+.mdl-cell {
+    box-sizing: border-box;
+    height: auto;
+    padding-left: 8px;
+    padding-top: 4px;
+  }
+  .mdl-grid:first-of-type .mdl-cell {
+    height: 50px;
+  }
+
+  /* .example-container {
+    display: flex;
+    flex-direction: column;
+  } */
+  
+  .example-container > * {
+    width: 100%;
+  }
+
+  h3{
+      margin: 0;
+  }
