@@ -12,10 +12,23 @@ namespace DBComparator.Controllers
     //[Authorize]
     public class ValuesController : ApiController
     {
+        List<string> a = new List<string>();
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            string cs = "Data Source=.;Initial Catalog=master;Integrated Security=True;";
+            // string cs = "data source=" + model.serverName + "; database= master; user id=" + model.UserName + "; password=" + model.Password;
+            SqlConnection con = new SqlConnection(cs);
+            SqlCommand cmd = new SqlCommand("SELECT name FROM master.dbo.sysdatabases WHERE name NOT IN('master', 'tempdb', 'model', 'msdb'); ", con);
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                a.Add((dr["name"]).ToString());
+            }
+
+            return a;
         }
 
 
