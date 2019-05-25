@@ -40,7 +40,8 @@ namespace DBComparator.Controllers
             {
                 if (Calltype == "Database")
                 {
-                    string cs = "data source=" + model.serverName + "; database= master; user id=" + model.UserName + "; password=" + model.Password;
+                    //string cs = "data source=." + model.serverName + "; database= master; user id=" + model.UserName + "; password=" + model.Password;
+                    string cs = "data source=.; database= master; Integrated Security=True;";
                     SqlConnection con = new SqlConnection(cs);
                     SqlCommand cmd = new SqlCommand("SELECT name FROM master.dbo.sysdatabases WHERE name NOT IN('master', 'tempdb', 'model', 'msdb'); ", con);
                     con.Open();
@@ -55,7 +56,8 @@ namespace DBComparator.Controllers
                 }
                 if (Calltype == "Table")
                 {
-                    string cs = "data source=" + model.serverName + "; database=" + model.Database + "; user id=" + model.UserName + "; password=" + model.Password;
+                    //string cs = "data source=" + model.serverName + "; database=" + model.Database + "; user id=" + model.UserName + "; password=" + model.Password;
+                    string cs = "data source=.; database= "+ model.Database + "; Integrated Security=True;";
                     SqlConnection con = new SqlConnection(cs);
                     string q = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_CATALOG = " + model.Database;
                     SqlCommand cmd = new SqlCommand(q, con);
@@ -70,7 +72,8 @@ namespace DBComparator.Controllers
                 }
                 if (Calltype == "Column")
                 {
-                    string cs = "data source=" + model.serverName + "; database=" + model.Database + "; user id=" + model.UserName + "; password=" + model.Password;
+                    //string cs = "data source=" + model.serverName + "; database=" + model.Database + "; user id=" + model.UserName + "; password=" + model.Password;
+                    string cs = "data source=.; database= " + model.Database + "; Integrated Security=True;";
                     SqlConnection con = new SqlConnection(cs);
                     string q = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = " + model.TableName;
                     SqlCommand cmd = new SqlCommand(q, con);
